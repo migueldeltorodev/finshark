@@ -4,6 +4,7 @@ import CardList from "./components/CardList/CardList";
 import Search from "./components/Search/Search";
 import { CompanySearch } from "./company";
 import { searchCompanies } from "./api";
+import ListPortfolio from "./components/Portfolio/ListPortfolio/ListPortfolio";
 
 function App() {
   //variable para almacenar lo que va a buscar el usuario
@@ -25,8 +26,18 @@ function App() {
 
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
+    const exists = portfolioValues.find((value) => value === e.target[0].value);
+    if (exists) return;
     const updatedPortfolio = [...portfolioValues, e.target[0].value];
     setPortfolioValues(updatedPortfolio);
+  };
+
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    const removed = portfolioValues.filter((value) => {
+      return value !== e.target[0].value;
+    });
+    setPortfolioValues(removed);
   };
 
   //Esto es para validar mejor lo que obtenemos de las respuestas, es decir, si recibimos un arreglo
@@ -52,6 +63,10 @@ function App() {
         onSearchSubmit={onSearchSubmit}
         handleSearchChange={handleSearchChange}
         search={search}
+      />
+      <ListPortfolio
+        portfolioValues={portfolioValues}
+        onPortfolioDelete={onPortfolioDelete}
       />
       {serverError && <h1>{serverError}</h1>}
       <CardList

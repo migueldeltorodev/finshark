@@ -2,6 +2,7 @@ import { SyntheticEvent } from "react";
 //import image from "../../../images/Z y T.png";
 import { CompanySearch } from "../../company";
 import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
+import "./Card.css";
 
 interface Props {
   id: string;
@@ -15,21 +16,24 @@ const Card: React.FC<Props> = ({
   onPortfolioCreate,
 }: Props): JSX.Element => {
   return (
-    <div className="Card">
-      <img alt="company logo" />
-      <div className="details">
-        <h2>
+    <div className="card" id={id}>
+      <img alt="company logo" className="card-img-top" />
+      <div className="card-body">
+        <h5 className="card-title">
           {searchResult.name}({searchResult.symbol})
-        </h2>
-        <p>{searchResult.currency}</p>
+        </h5>
+        <p className="card-text">
+          <span className="fw-bold">Currency:</span> {searchResult.currency}
+        </p>
+        <p className="card-text">
+          <span className="fw-bold">Exchange:</span>
+          {searchResult.exchangeShortName} - {searchResult.stockExchange}
+        </p>
+        <AddPortfolio
+          onPortfolioCreate={onPortfolioCreate}
+          symbol={searchResult.symbol}
+        />
       </div>
-      <p className="info">
-        {searchResult.exchangeShortName} - {searchResult.stockExchange}
-      </p>
-      <AddPortfolio
-        onPortfolioCreate={onPortfolioCreate}
-        symbol={searchResult.symbol}
-      />
     </div>
   );
 };
