@@ -8,6 +8,8 @@ import { searchCompanies } from "./api";
 function App() {
   //variable para almacenar lo que va a buscar el usuario
   const [search, setSearch] = useState("");
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
+
   //variable para almacenar los resultados de las busquedas de los usuarios
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   //variable para almacenar los errores que devuelve el servidor a las consultas, el error
@@ -15,10 +17,16 @@ function App() {
   //es buena práctica declarar especificamente la mayor cantidad de cosas posibles para facilitar el trabajo a JS
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     //la palabra clave any permite que el parametro e sea de cualquier tipo
     setSearch(e.target.value);
     console.log(e);
+  };
+
+  const onPortfolioCreate = (e: any) => {
+    e.preventDefault();
+    const updatedPortfolio = [...portfolioValues, e.target[0].value];
+    setPortfolioValues(updatedPortfolio);
   };
 
   //Esto es para validar mejor lo que obtenemos de las respuestas, es decir, si recibimos un arreglo
@@ -26,8 +34,9 @@ function App() {
   //entonces se ejecuta la linea setSearchResult(result.data) y almacenamos los datos que obtuvimos
   //de lo contrario, searchCompanies devuelve un string con algun mensaje de error, por lo que entonces
   //almacenamos dicho error con setServerError.
-  const onClick = async (e: SyntheticEvent) => {
+  const onSearchSubmit = async (e: SyntheticEvent) => {
     //SyntheticEvent es como un evento generico
+    e.preventDefault();
     const result = await searchCompanies(search);
     if (typeof result === "string") {
       setServerError(result);
@@ -39,9 +48,16 @@ function App() {
 
   return (
     <div className="App">
-      <Search onClick={onClick} handleChange={handleChange} search={search} />
+      <Search
+        onSearchSubmit={onSearchSubmit}
+        handleSearchChange={handleSearchChange}
+        search={search}
+      />
       {serverError && <h1>{serverError}</h1>}
-      <CardList searchResults={searchResult} />
+      <CardList
+        searchResults={searchResult}
+        onPortfolioCreate={onPortfolioCreate}
+      />
     </div>
   );
 }
