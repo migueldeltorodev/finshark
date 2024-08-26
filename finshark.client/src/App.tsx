@@ -1,12 +1,11 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import "./App.css";
 import CardList from "./components/CardList/CardList";
 import Search from "./components/Search/Search";
 import { CompanySearch } from "./company";
 import { searchCompanies } from "./api";
 import ListPortfolio from "./components/Portfolio/ListPortfolio/ListPortfolio";
 import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/Hero/Hero";
+//import Hero from "./components/Hero/Hero";
 
 function App() {
   //variable para almacenar lo que va a buscar el usuario
@@ -62,7 +61,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Hero />
+      {/* <Hero /> */}
       <Search
         onSearchSubmit={onSearchSubmit}
         handleSearchChange={handleSearchChange}

@@ -1,5 +1,4 @@
 import { SyntheticEvent } from "react";
-//import image from "../../../images/Z y T.png";
 import { CompanySearch } from "../../company";
 import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 import "./Card.css";
@@ -10,32 +9,26 @@ interface Props {
   onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
-const Card: React.FC<Props> = ({
-  id,
-  searchResult,
-  onPortfolioCreate,
-}: Props): JSX.Element => {
+function Card({ id, searchResult, onPortfolioCreate }: Props) {
   return (
-    <div className="card" id={id}>
-      <img alt="company logo" className="card-img-top" />
-      <div className="card-body">
-        <h5 className="card-title">
-          {searchResult.name}({searchResult.symbol})
-        </h5>
-        <p className="card-text">
-          <span className="fw-bold">Currency:</span> {searchResult.currency}
-        </p>
-        <p className="card-text">
-          <span className="fw-bold">Exchange:</span>
-          {searchResult.exchangeShortName} - {searchResult.stockExchange}
-        </p>
-        <AddPortfolio
-          onPortfolioCreate={onPortfolioCreate}
-          symbol={searchResult.symbol}
-        />
-      </div>
+    <div
+      className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
+      key={id}
+      id={id}
+    >
+      <h2 className="font-bold text-center text-black md:text-left">
+        {searchResult.name} ({searchResult.symbol})
+      </h2>
+      <p className="text-black">{searchResult.currency}</p>
+      <p className="font-bold text-black">
+        {searchResult.exchangeShortName} - {searchResult.stockExchange}
+      </p>
+      <AddPortfolio
+        onPortfolioCreate={onPortfolioCreate}
+        symbol={searchResult.symbol}
+      />
     </div>
   );
-};
+}
 
 export default Card;
