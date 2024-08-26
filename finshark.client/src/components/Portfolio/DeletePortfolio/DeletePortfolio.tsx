@@ -9,7 +9,7 @@ function DeletePortfolio({ onPortfolioDelete, portfolioValue }: Props) {
   return (
     <div>
       <form onSubmit={onPortfolioDelete}>
-        <input hidden={true} value={portfolioValue} />
+        <input type="text" hidden={true} value={portfolioValue} />
         <button>X</button>
       </form>
     </div>
