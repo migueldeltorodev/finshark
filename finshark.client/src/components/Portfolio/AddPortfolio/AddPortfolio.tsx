@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 
 interface Props {
   onPortfolioCreate: (e: SyntheticEvent) => void;
