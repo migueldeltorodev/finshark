@@ -5,17 +5,17 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 interface Props {
-  id: string;
+  idCard: string;
   searchResult: CompanySearch;
   onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
-function Card({ id, searchResult, onPortfolioCreate }: Props) {
+function Card({ idCard, searchResult, onPortfolioCreate }: Props) {
   return (
     <div
       className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
-      key={id}
-      id={id}
+      key={idCard}
+      id={idCard}
     >
       <Link
         to={`/company/${searchResult.symbol}`}

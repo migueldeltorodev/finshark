@@ -18,7 +18,7 @@ const CardList: React.FC<Props> = ({
         searchResults.map((result) => {
           return (
             <Card
-              id={result.symbol}
+              idCard={result.symbol}
               key={uuidv4()}
               searchResult={result}
               onPortfolioCreate={onPortfolioCreate}
