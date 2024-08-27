@@ -8,7 +8,7 @@ function DesignPage({}: Props) {
     <>
       <h1>FinShark Design Page</h1>
       <h2>
-        This is FinShark's Design Page. This is where we well house various
+        This is FinShark's Design Page. This is where we will house various
         design aspect of the app
       </h2>
       <Table />
