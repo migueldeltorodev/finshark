@@ -18,7 +18,7 @@ function Card({ idCard, searchResult, onPortfolioCreate }: Props) {
       id={idCard}
     >
       <Link
-        to={`/company/${searchResult.symbol}`}
+        to={`/company/${searchResult.symbol}/company-profile`}
         className="font-bold text-center text-black md:text-left"
       >
         {searchResult.name} ({searchResult.symbol})
