@@ -6,6 +6,7 @@ type Props = {};
 
 type Company = (typeof incomeData)[0];
 
+//Esta variable la creamos para solamente trabajar con 2 columnas, Year y Cost of Revenue
 const configs = [
   {
     label: "Year",
@@ -18,6 +19,9 @@ const configs = [
 ];
 
 function Table({}: Props) {
+  //Mediante esta función se van a renderizar todos los datos de prueba en filas
+  //Mediante la función .map se iteran los datos y se van creando filas
+  //Termina con la creación de filas en renderedRows
   const renderedRows = incomeData.map((company) => {
     return (
       <tr key={company.cik}>
@@ -31,6 +35,7 @@ function Table({}: Props) {
       </tr>
     );
   });
+  //Lo mismo, pero esta crea el encabezado, en este caso solo 2 porque config tiene solo 2 objetos dentro
   const renderedHeaders = configs.map((config: any) => {
     return (
       <th
@@ -41,6 +46,7 @@ function Table({}: Props) {
       </th>
     );
   });
+  //El componente devuelve la tabla utilizando los datos anteriores.
   return (
     <div className="bt-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
       <table>

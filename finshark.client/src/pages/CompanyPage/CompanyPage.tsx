@@ -27,7 +27,7 @@ function CompanyPage({}: Props) {
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
-          <CompanyDashboard>
+          <CompanyDashboard ticker={ticker!}>
             <Title title="Company Name" subtitle={company.companyName} />
           </CompanyDashboard>
         </div>
