@@ -1,28 +1,13 @@
-import { testIncomeStatementData } from "./testData";
+type Props = {
+  configs: any;
+  incomeData: any;
+};
 
-const incomeData = testIncomeStatementData;
-
-type Props = {};
-
-type Company = (typeof incomeData)[0];
-
-//Esta variable la creamos para solamente trabajar con 2 columnas, Year y Cost of Revenue
-const configs = [
-  {
-    label: "Year",
-    render: (company: Company) => company.acceptedDate,
-  },
-  {
-    label: "Cost of Revenue",
-    render: (company: Company) => company.costOfRevenue,
-  },
-];
-
-function Table({}: Props) {
+function Table({ configs, incomeData }: Props) {
   //Mediante esta función se van a renderizar todos los datos de prueba en filas
   //Mediante la función .map se iteran los datos y se van creando filas
   //Termina con la creación de filas en renderedRows
-  const renderedRows = incomeData.map((company) => {
+  const renderedRows = incomeData.map((company: any) => {
     return (
       <tr key={company.cik}>
         {configs.map((val: any) => {

@@ -21,7 +21,7 @@ function DesignGuide({}: Props) {
         design aspect of the app
       </h2>
       <RatioList data={testIncomeStatementData} config={tableConfig} />
-      <Table />
+      <Table incomeData={testIncomeStatementData} configs={tableConfig} />
     </>
   );
 }

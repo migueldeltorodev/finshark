@@ -6,6 +6,7 @@ import RatioList from "../RatioList/RatioList";
 
 interface Props {}
 
+/* Perfil en el que se va a basar ratio list para devolver la lista de caracteristicas */
 const tableConfig = [
   {
     label: "Market Cap",
@@ -68,9 +69,12 @@ const tableConfig = [
 ];
 
 function CompanyProfile({}: Props) {
-  const ticker = useOutletContext<string>();
+  const ticker = useOutletContext<string>(); //El Outlet tiene un parametro context que puede enviar el ticker (la compañia)
   const [companyData, setCompanyData] = useState<CompanyKeyMetrics>();
 
+  //Llamada al api para que nos devuelva las metricas de la compañia deseada
+  //el query enviado debe ser la dirección actual de la pagina /company/(compañia)
+  //y entonces el mismo Outlet despues le agrega el + /company-profile
   useEffect(() => {
     const getCompanyKeyMetrics = async () => {
       const value = await getKeyMetrics(ticker);

@@ -9,8 +9,8 @@ import Title from "../../components/Title/Title";
 interface Props {}
 
 function CompanyPage({}: Props) {
-  //https:localhost:5173/ es lo que hace el useParams si lo ejecutas al inicio,
-  //en este caso lo que debe devolver es la ruta en la que te encuentras
+  //en este caso lo que debe devolver es el nombre de la compañía, useParagrams() se usa para retornar
+  //parametros dinamicos en tu URL actual
   let { ticker } = useParams();
   const [company, setCompany] = useState<CompanyProfile>();
 
