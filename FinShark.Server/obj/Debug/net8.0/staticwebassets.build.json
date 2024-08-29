@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "iNIM+V0xkmLaGpRL+Xp4wEO/8oz4Z5KWupK45YTcJ/E=",
+  "Source": "FinShark.Server",
+  "BasePath": "_content/FinShark.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
