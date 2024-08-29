@@ -3,6 +3,7 @@ import { CompanyCashFlow } from "../../company";
 import { useEffect, useState } from "react";
 import { getCashflowStatement } from "../../api";
 import Table from "../Table/Table";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 
@@ -60,7 +61,7 @@ function CashflowStatement({}: Props) {
       {cashflowdata ? (
         <Table configs={config} incomeData={cashflowdata} />
       ) : (
-        <h1>No Results!</h1>
+        <Spinner />
       )}
     </>
   );

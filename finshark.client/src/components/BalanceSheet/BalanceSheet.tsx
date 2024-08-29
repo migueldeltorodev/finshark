@@ -3,6 +3,7 @@ import { CompanyBalanceSheet } from "../../company";
 import { useEffect, useState } from "react";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 
@@ -78,7 +79,7 @@ function BalanceSheet({}: Props) {
       {balanceSheet ? (
         <RatioList config={config} data={balanceSheet} />
       ) : (
-        <h1>Company not Found!</h1>
+        <Spinner />
       )}
     </>
   );
