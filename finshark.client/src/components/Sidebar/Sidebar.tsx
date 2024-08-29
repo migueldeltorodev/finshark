@@ -1,5 +1,14 @@
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaMoneyBill, FaTable } from "react-icons/fa";
+import { FaTableCells } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+/*
+import {
+  CiBank,
+  CiCalendar,
+  CiCalculator1,
+  CiCreditCard2,
+} from "react-icons/ci";
+*/
 
 interface Props {}
 
@@ -24,21 +33,21 @@ function Sidebar({}: Props) {
               to="income-statement"
               className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
             >
-              <FaHome />
+              <FaTable />
               <h6 className="ml-3">Income Statement</h6>
             </Link>
             <Link
               to="balance-sheet"
               className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
             >
-              <FaHome />
+              <FaTableCells />
               <h6 className="ml-3">Balance Sheet</h6>
             </Link>
             <Link
               to="cashflow-statement"
               className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
             >
-              <FaHome />
+              <FaMoneyBill />
               <h6 className="ml-3">Cashflow Statement</h6>
             </Link>
           </div>
