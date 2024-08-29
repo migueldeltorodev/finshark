@@ -32,9 +32,9 @@ function CompanyPage({}: Props) {
           <Sidebar />
           <CompanyDashboard ticker={ticker!}>
             <Title title="Company Name" subtitle={company.companyName} />
-            <Title title="Price" subtitle={company.price.toString()} />
+            <Title title="Price" subtitle={"$" + company.price.toString()} />
             <Title title="Sector" subtitle={company.sector} />
-            <Title title="DCF" subtitle={company.dcf.toString()} />
+            <Title title="DCF" subtitle={"$" + company.dcf.toString()} />
             {/* <CompFinder ticker={company.symbol} /> */}
             <TenKFinder ticker={company.symbol} />
             <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
