@@ -6,7 +6,8 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import CompanyDashboard from "../../components/CompanyDashboard/CompanyDashboard";
 import Title from "../../components/Title/Title";
 import Spinner from "../../components/Spinner/Spinner";
-import CompFinder from "../../components/CompFinder/CompFinder";
+// import CompFinder from "../../components/CompFinder/CompFinder";
+import TenKFinder from "../../components/TenKFinder/TenKFinder";
 
 interface Props {}
 
@@ -34,7 +35,8 @@ function CompanyPage({}: Props) {
             <Title title="Price" subtitle={company.price.toString()} />
             <Title title="Sector" subtitle={company.sector} />
             <Title title="DCF" subtitle={company.dcf.toString()} />
-            <CompFinder ticker={company.symbol} />
+            {/* <CompFinder ticker={company.symbol} /> */}
+            <TenKFinder ticker={company.symbol} />
             <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
               {company.description}
             </p>

@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 interface Props {
   children: React.ReactNode;
-  ticker: string; //sería el contexto de la pagina antes del /company-profile o /income-statement
+  ticker: string;
 }
 
 function CompanyDashboard({ children, ticker }: Props) {
