@@ -1,4 +1,6 @@
 ﻿using FinShark.Server.Data;
+using FinShark.Server.Dtos.Stock;
+using FinShark.Server.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +19,7 @@ namespace FinShark.Server.Controllers
         [HttpGet]
         public IActionResult GetAll() 
         {
-            var stocks = _context.Stock.ToList();
+            var stocks = _context.Stock.ToList().Select(s => s.ToStockDto());
             return Ok(stocks);
         }
 
@@ -30,7 +32,16 @@ namespace FinShark.Server.Controllers
                 return NotFound();
             }
 
-            return Ok(stock);
+            return Ok(stock.ToStockDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+        {
+            var stockModel = stockDto.ToStockFromCreateStockDto();
+            _context.Stock.Add(stockModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto());
         }
     }
 }
