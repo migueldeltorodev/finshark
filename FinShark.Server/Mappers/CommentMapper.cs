@@ -26,6 +26,5 @@ namespace FinShark.Server.Mappers
                 StockId = stockId
             };
         }
-           
     }
 }

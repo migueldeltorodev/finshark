@@ -42,16 +42,40 @@ namespace FinShark.Server.Controllers
         }
 
         [HttpPost("{stockId}")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto createComment)
+        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto requestDto)
         {
             if(!await _interfaceStock.StockExists(stockId))
             {
                 return BadRequest("Stock does not exist");
             }
 
-            var commentModel = createComment.ToCommentFromCreateComment(stockId);
+            var commentModel = requestDto.ToCommentFromCreateComment(stockId);
             await _interfaceComment.CreateAsync(commentModel);
-            return CreatedAtAction(nameof(GetById), new { id = commentModel }, commentModel.ToCommentDto());
+            return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute]int id, [FromBody] UpdateCommentRequestDto requestDto)
+        {
+            var comment = await _interfaceComment.UpdateAsync(id, requestDto);
+            if(comment == null)
+            {
+                return NotFound("Comment not found");
+            }
+            return Ok(comment.ToCommentDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var comment = await _interfaceComment.DeleteAsync(id);
+            if(comment == null)
+            {
+                return NotFound("Comment doesn't exist");
+            }
+            return NoContent();
         }
         
     }
