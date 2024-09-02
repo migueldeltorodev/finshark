@@ -2,6 +2,7 @@ using FinShark.Server.Data;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Models;
 using FinShark.Server.Repository;
+using FinShark.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +27,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 //Agregando los servicios/repositorios.
+//Inyecciones de dependencia
 builder.Services.AddScoped<InterfaceStockRepository, StockRepository>();
 builder.Services.AddScoped<InterfaceCommentRepository, CommentRepository>();
+builder.Services.AddScoped<InterfaceTokenService, TokenService>();
 
 //Agregando Identity options para la contraseña:
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -62,6 +65,8 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+
+
 
 var app = builder.Build();
 
