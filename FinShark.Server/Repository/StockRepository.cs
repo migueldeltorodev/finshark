@@ -40,6 +40,7 @@ namespace FinShark.Server.Repository
         {
             var stocks = _context.Stock.Include(c => c.Comment).AsQueryable();
 
+            //Sorting
             if(!string.IsNullOrWhiteSpace(query.CompanyName))
             {
                 stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));  
@@ -59,8 +60,11 @@ namespace FinShark.Server.Repository
                 }
             }
 
+            //Pagination
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-            return await stocks.ToListAsync();
+            //Result
+            return await stocks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
