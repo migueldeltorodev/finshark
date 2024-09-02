@@ -24,7 +24,7 @@ namespace FinShark.Server.Repository
             return await _context.Comment.FindAsync(id);
         }
 
-        public async Task<Comment> CreateAsync(Comment comment)
+        public async Task<Comment?> CreateAsync(Comment comment)
         {
             await _context.Comment.AddAsync(comment);
             await _context.SaveChangesAsync();

@@ -22,6 +22,10 @@ namespace FinShark.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            //Basicamente esto va a validar todo lo que usamos en Data Annotations.
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comments = await _interfaceComment.GetAllAsync();
             var commentsDto = comments.Select(s => s.ToCommentDto());
             return Ok(commentsDto);
@@ -29,25 +33,28 @@ namespace FinShark.Server.Controllers
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _interfaceComment.GetByIdAsync(id);
 
             if(comment == null)
-            {
                 return NotFound();
-            }
+
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto requestDto)
         {
-            if(!await _interfaceStock.StockExists(stockId))
-            {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!await _interfaceStock.StockExists(stockId))
                 return BadRequest("Stock does not exist");
-            }
 
             var commentModel = requestDto.ToCommentFromCreateComment(stockId);
             await _interfaceComment.CreateAsync(commentModel);
@@ -55,26 +62,32 @@ namespace FinShark.Server.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute]int id, [FromBody] UpdateCommentRequestDto requestDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _interfaceComment.UpdateAsync(id, requestDto);
+
             if(comment == null)
-            {
                 return NotFound("Comment not found");
-            }
+
             return Ok(comment.ToCommentDto());
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _interfaceComment.DeleteAsync(id);
+
             if(comment == null)
-            {
                 return NotFound("Comment doesn't exist");
-            }
+
             return NoContent();
         }
         
