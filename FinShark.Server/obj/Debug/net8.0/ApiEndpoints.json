@@ -116,6 +116,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FinShark.Server.Controllers.PortfolioController",
+    "Method": "GetUserPortfolio",
+    "RelativePath": "api/Portfolio",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FinShark.Server.Controllers.StockController",
     "Method": "GetAll",
     "RelativePath": "api/Stock",

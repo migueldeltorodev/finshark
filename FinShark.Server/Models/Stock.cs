@@ -2,6 +2,7 @@
 
 namespace FinShark.Server.Models
 {
+    [Table("Stocks")]
     public class Stock
     {
         public int Id { get; set; }
@@ -17,6 +18,7 @@ namespace FinShark.Server.Models
         //Relación one-to-many porque en 1 stock puedes tener x cantidad de comentarios
         //Cuando tenemos una relación asi, tendremos una primary key (Id) y las foreign key
         public List<Comment> Comment { get; set; } = new List<Comment>();
+        public List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
     }
 
 }

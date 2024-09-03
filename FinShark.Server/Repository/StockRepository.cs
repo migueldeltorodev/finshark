@@ -73,6 +73,11 @@ namespace FinShark.Server.Repository
             return stock;
         }
 
+        public async Task<Stock?> GetBySymbolAsync(string symbol)
+        {
+            return await _context.Stock.FirstOrDefaultAsync(s => s.Symbol == symbol);
+        }
+
         public async Task<bool> StockExists(int id)
         {
             return await _context.Stock.AnyAsync(x => x.Id == id);

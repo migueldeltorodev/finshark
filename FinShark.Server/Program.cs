@@ -94,6 +94,7 @@ builder.Services.AddScoped<InterfaceStockRepository, StockRepository>();
 builder.Services.AddScoped<InterfaceCommentRepository, CommentRepository>();
 builder.Services.AddScoped<InterfaceTokenService, TokenService>();
 builder.Services.AddScoped<InterfaceUserManagerRepository, UserManagerRepository>();
+builder.Services.AddScoped<InterfacePortfolioRepository, PortfolioRepository>();
 
 var app = builder.Build();
 
