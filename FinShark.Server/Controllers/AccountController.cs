@@ -12,41 +12,47 @@ namespace FinShark.Server.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
         private readonly InterfaceTokenService _tokenService;
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(UserManager<AppUser> userManager, InterfaceTokenService interfaceTokenService, SignInManager<AppUser> signInManager)
+        private readonly InterfaceUserManagerRepository _userManagerRepo;
+        public AccountController(InterfaceTokenService interfaceTokenService, SignInManager<AppUser> signInManager, InterfaceUserManagerRepository userManagerRepo)
         {
-            _userManager = userManager; 
             _tokenService = interfaceTokenService;
             _signInManager = signInManager;
+            _userManagerRepo = userManagerRepo;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody]LoginDto loginDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                
+                var user = await _userManagerRepo.UserExists(loginDto.Username);
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
+                if (user == null)
+                    return Unauthorized("Invalid Username!");
 
-            if (user == null)
-                return Unauthorized("Invalid Username!");
+                var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+                if (!result.Succeeded)
+                    return Unauthorized("Username not found and/or password incorrect");
 
-            if (!result.Succeeded)
-                return Unauthorized("Username not found and/or password incorrect");
-
-            return Ok(
-                new NewUserDto
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
-                }
-            );
-
+                return Ok(
+                    new NewUserDto
+                    {
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Token = _tokenService.CreateToken(user)
+                    }
+                );
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost("register")]
@@ -62,12 +68,13 @@ namespace FinShark.Server.Controllers
                     UserName = register.Username,
                     Email = register.EmailAddress,
                 };
-
-                var createdUser = await _userManager.CreateAsync(appUser, register.Password);
+                
+                var createdUser = await _userManagerRepo.CreateAsync(appUser, register.Password);
 
                 if (createdUser.Succeeded)
                 {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    var roleResult = await _userManagerRepo.AddToRoleAsync(appUser, "User");
+
                     if(roleResult.Succeeded)
                     {
                         return Ok(
