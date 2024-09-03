@@ -28,6 +28,7 @@ namespace FinShark.Server.Services
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
