@@ -1,4 +1,5 @@
-﻿using FinShark.Server.Extensions;
+﻿using FinShark.Server.Data;
+using FinShark.Server.Extensions;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -41,30 +42,60 @@ namespace FinShark.Server.Controllers
         [Authorize]
         public async Task<IActionResult> AddPortfolio(string symbol)
         {
+            try
+            {
+                var username = User.GetUsername();
+                var appUser = await _userManager.FindByNameAsync(username);
+                var stock = await _stockRepo.GetBySymbolAsync(symbol);
+
+                if (stock == null)
+                    return BadRequest("Stock not found");
+
+                var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
+
+                if (userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower()))
+                    return BadRequest("Cannot add same stock");
+
+                var portfolioModel = new Portfolio
+                {
+                    StockId = stock.Id,
+                    AppUserId = appUser.Id,
+                };
+
+                await _portfolioRepo.CreateAsync(portfolioModel);
+
+                if (portfolioModel == null)
+                    return StatusCode(500, "Could not create a portfolio");
+                else
+                    return Created();
+            }catch(Exception ex)
+            {
+                return StatusCode(500, $"Failed to add portfolio: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> DeletePortfolio(string symbol)
+        {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-            var stock = await _stockRepo.GetBySymbolAsync(symbol);
-
-            if(stock == null)
-                return BadRequest("Stock not found");
 
             var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
 
-            if (userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower()))
-                return BadRequest("Cannot add same stock");
+            var filteredStocks = userPortfolio.Where(s => s.Symbol.ToLower() == symbol.ToLower()).ToList();
 
-            var portfolioModel = new Portfolio
+            if(filteredStocks.Count() == 1)
             {
-                StockId = stock.Id,
-                AppUserId = appUser.Id,
-            };
-
-            await _portfolioRepo.CreateAsync(portfolioModel);
-
-            if (portfolioModel == null)
-                return StatusCode(500, "Could not create a portfolio");
+                await _portfolioRepo.DeletePortfolio(appUser, symbol);
+            }
             else
-                return Created();
+            {
+                return BadRequest("Stock not in your portfolio");
+            }
+
+            return Ok();
         }
+
     }
 }

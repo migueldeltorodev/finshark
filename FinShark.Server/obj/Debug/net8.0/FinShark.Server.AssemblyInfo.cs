@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FinShark.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77ab57b6428590e967aced107d6124a7eaa367dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b65e584ed19df3e3935cc3352c930c2c6f4bb03")]
 [assembly: System.Reflection.AssemblyProductAttribute("FinShark.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FinShark.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

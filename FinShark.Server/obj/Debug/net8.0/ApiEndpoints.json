@@ -126,6 +126,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FinShark.Server.Controllers.PortfolioController",
+    "Method": "AddPortfolio",
+    "RelativePath": "api/Portfolio",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "symbol",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FinShark.Server.Controllers.StockController",
     "Method": "GetAll",
     "RelativePath": "api/Stock",
