@@ -2,6 +2,7 @@
 using FinShark.Server.Extensions;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Models;
+using FinShark.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,12 +18,13 @@ namespace FinShark.Server.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly InterfaceStockRepository _stockRepo;
         private readonly InterfacePortfolioRepository _portfolioRepo;
-
-        public PortfolioController(UserManager<AppUser> userManager, InterfaceStockRepository stockRepo, InterfacePortfolioRepository interfacePortfolio) 
+        private readonly InterfaceFMPService _fmpService;
+        public PortfolioController(UserManager<AppUser> userManager, InterfaceStockRepository stockRepo, InterfacePortfolioRepository interfacePortfolio, InterfaceFMPService fmpService) 
         {
             _userManager = userManager;
             _stockRepo = stockRepo;
             _portfolioRepo = interfacePortfolio;
+            _fmpService = fmpService;
         }
 
         [HttpGet]
@@ -44,18 +46,35 @@ namespace FinShark.Server.Controllers
         {
             try
             {
+                //Obtenemos el usuario actual
                 var username = User.GetUsername();
                 var appUser = await _userManager.FindByNameAsync(username);
+                //Buscamos si existe o no el stock por su symbol
                 var stock = await _stockRepo.GetBySymbolAsync(symbol);
 
+                //Si el stock no existe
                 if (stock == null)
-                    return BadRequest("Stock not found");
-
+                {
+                    //Buscamos desde el httpClient el stock
+                    stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                    //Si no existe dicho stock, envia un bad request, si existe, lo almacena en la db
+                    if (stock == null)
+                    {
+                        return BadRequest("This stock doesn't exist");
+                    }
+                    else
+                    {
+                        await _stockRepo.CreateAsync(stock);
+                    }
+                }
+                //Obtenemos el portfolio actual del usuario
                 var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
 
+                //Si ya contiene el stock, nos aseguramos de no añadirlo duplicado
                 if (userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower()))
                     return BadRequest("Cannot add same stock");
 
+                //De no existir, se crea o actualiza el portfolio con el nuevo stock (con la FK)
                 var portfolioModel = new Portfolio
                 {
                     StockId = stock.Id,

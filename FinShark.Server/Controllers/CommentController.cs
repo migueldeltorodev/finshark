@@ -16,11 +16,13 @@ namespace FinShark.Server.Controllers
         private readonly InterfaceCommentRepository _interfaceComment;
         private readonly InterfaceStockRepository _interfaceStock;
         private readonly UserManager<AppUser> _userManager;
-        public CommentController(InterfaceCommentRepository interfaceCommentRepository, InterfaceStockRepository interfaceStock, UserManager<AppUser> userManager)
+        private readonly InterfaceFMPService _fmpService;
+        public CommentController(InterfaceCommentRepository interfaceCommentRepository, InterfaceStockRepository interfaceStock, UserManager<AppUser> userManager, InterfaceFMPService fmpService)
         {
             _interfaceComment = interfaceCommentRepository;
             _interfaceStock = interfaceStock;
             _userManager = userManager;
+            _fmpService = fmpService;
         }
 
         [HttpGet]
@@ -51,19 +53,35 @@ namespace FinShark.Server.Controllers
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId:int}")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto requestDto)
+        [HttpPost("{symbol:alpha}")]
+        public async Task<IActionResult> Create([FromRoute] string symbol, [FromBody] CreateCommentRequestDto requestDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (!await _interfaceStock.StockExists(stockId))
-                return BadRequest("Stock does not exist");
+            //Obtenemos desde la ruta el stock por su symbol desde la base de datos
+            var stock = await _interfaceStock.GetBySymbolAsync(symbol); 
 
+            //Si el stock no existe
+            if(stock == null)
+            {
+                //Buscamos desde el httpClient el stock
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                //Si no existe dicho stock, envia un bad request, si existe, lo almacena en la db
+                if(stock == null)
+                {
+                    return BadRequest("This stock doesn't exist");
+                }
+                else
+                {
+                    await _interfaceStock.CreateAsync(stock);
+                }
+            }
+            //Obtenemos el username del usuario actual
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-
-            var commentModel = requestDto.ToCommentFromCreateComment(stockId);
+            //Desde el comment dto que recibimos, lo mapeamos a comment
+            var commentModel = requestDto.ToCommentFromCreateComment(stock.Id);
             commentModel.AppUserId = appUser.Id;
             await _interfaceComment.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
@@ -76,6 +94,8 @@ namespace FinShark.Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            //Verificamos con el repositorio, si el comentario existe, de acuerdo al id, si existe, con el requestDto
+            //se actualiza reemplazando los datos anteriores y posteriormente SaveChangesAsync()
             var comment = await _interfaceComment.UpdateAsync(id, requestDto);
 
             if(comment == null)

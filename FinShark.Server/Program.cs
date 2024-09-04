@@ -95,6 +95,8 @@ builder.Services.AddScoped<InterfaceCommentRepository, CommentRepository>();
 builder.Services.AddScoped<InterfaceTokenService, TokenService>();
 builder.Services.AddScoped<InterfaceUserManagerRepository, UserManagerRepository>();
 builder.Services.AddScoped<InterfacePortfolioRepository, PortfolioRepository>();
+builder.Services.AddScoped<InterfaceFMPService, FMPService>();
+builder.Services.AddHttpClient<InterfaceFMPService, FMPService>();
 
 var app = builder.Build();
 
