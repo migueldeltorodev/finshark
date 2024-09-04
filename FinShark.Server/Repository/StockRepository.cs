@@ -38,7 +38,7 @@ namespace FinShark.Server.Repository
 
         public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            var stocks = _context.Stock.Include(c => c.Comment).AsQueryable();
+            var stocks = _context.Stock.Include(c => c.Comment).ThenInclude(a => a.AppUser).AsQueryable();
 
             //Sorting
             if(!string.IsNullOrWhiteSpace(query.CompanyName))
@@ -69,7 +69,7 @@ namespace FinShark.Server.Repository
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
-            var stock = await _context.Stock.Include(c => c.Comment).FirstOrDefaultAsync(i => i.Id == id);
+            var stock = await _context.Stock.Include(c => c.Comment).ThenInclude(a => a.AppUser).FirstOrDefaultAsync(i => i.Id == id);
             return stock;
         }
 

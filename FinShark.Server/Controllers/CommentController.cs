@@ -1,7 +1,10 @@
 ﻿using FinShark.Server.Dtos.Comment;
+using FinShark.Server.Extensions;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Mappers;
+using FinShark.Server.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinShark.Server.Controllers
@@ -12,11 +15,12 @@ namespace FinShark.Server.Controllers
     {
         private readonly InterfaceCommentRepository _interfaceComment;
         private readonly InterfaceStockRepository _interfaceStock;
-        public CommentController(InterfaceCommentRepository interfaceCommentRepository, InterfaceStockRepository interfaceStock)
+        private readonly UserManager<AppUser> _userManager;
+        public CommentController(InterfaceCommentRepository interfaceCommentRepository, InterfaceStockRepository interfaceStock, UserManager<AppUser> userManager)
         {
             _interfaceComment = interfaceCommentRepository;
             _interfaceStock = interfaceStock;
-
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -56,7 +60,11 @@ namespace FinShark.Server.Controllers
             if (!await _interfaceStock.StockExists(stockId))
                 return BadRequest("Stock does not exist");
 
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
             var commentModel = requestDto.ToCommentFromCreateComment(stockId);
+            commentModel.AppUserId = appUser.Id;
             await _interfaceComment.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }
