@@ -45,16 +45,15 @@ namespace FinShark.Server.Repository
             return await _context.Comment.AnyAsync(x => x.Id == id);
         }
 
-        public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto commentModel)
+        public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto updateModel)
         {
             var existingComment = await _context.Comment.FindAsync(id);
-            if (existingComment == null)
-            {
-                return null;
-            }
 
-            existingComment.Title = commentModel.Title;
-            existingComment.Content = commentModel.Content;
+            if (existingComment == null)
+                return null;
+
+            existingComment.Title = updateModel.Title;
+            existingComment.Content = updateModel.Content;
 
             await _context.SaveChangesAsync();
             return existingComment;
@@ -63,15 +62,15 @@ namespace FinShark.Server.Repository
 
         public async Task<Comment?> DeleteAsync(int id)
         {
-            var comment = await _context.Comment.FirstOrDefaultAsync(x => x.Id == id);
-            if (comment == null)
-            {
+            var commentModel = await _context.Comment.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (commentModel == null)
                 return null; 
-            }
-            _context.Comment.Remove(comment);
+                
+            _context.Comment.Remove(commentModel);
             await _context.SaveChangesAsync();
 
-            return comment;
+            return commentModel;
         }
     }
 }
