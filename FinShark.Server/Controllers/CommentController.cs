@@ -1,8 +1,10 @@
 ﻿using FinShark.Server.Dtos.Comment;
 using FinShark.Server.Extensions;
+using FinShark.Server.Helpers;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Mappers;
 using FinShark.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +15,28 @@ namespace FinShark.Server.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        private readonly InterfaceCommentRepository _interfaceComment;
-        private readonly InterfaceStockRepository _interfaceStock;
+        private readonly InterfaceCommentRepository _commentRepo;
+        private readonly InterfaceStockRepository _stockRepo;
         private readonly UserManager<AppUser> _userManager;
         private readonly InterfaceFMPService _fmpService;
         public CommentController(InterfaceCommentRepository interfaceCommentRepository, InterfaceStockRepository interfaceStock, UserManager<AppUser> userManager, InterfaceFMPService fmpService)
         {
-            _interfaceComment = interfaceCommentRepository;
-            _interfaceStock = interfaceStock;
+            _commentRepo = interfaceCommentRepository;
+            _stockRepo = interfaceStock;
             _userManager = userManager;
             _fmpService = fmpService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery]CommentQueryObject detailsQuery)
         {
-            //Basicamente esto va a validar todo lo que usamos en Data Annotations.
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comments = await _interfaceComment.GetAllAsync();
-            var commentsDto = comments.Select(s => s.ToCommentDto());
+            var commentsFromDatabase = await _commentRepo.GetAllAsync(detailsQuery);
+            var commentsDto = commentsFromDatabase.Select(s => s.ToCommentDto());
             return Ok(commentsDto);
-
         }
 
         
@@ -45,7 +46,7 @@ namespace FinShark.Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comment = await _interfaceComment.GetByIdAsync(id);
+            var comment = await _commentRepo.GetByIdAsync(id);
 
             if(comment == null)
                 return NotFound();
@@ -60,7 +61,7 @@ namespace FinShark.Server.Controllers
                 return BadRequest(ModelState);
 
             //Obtenemos desde la ruta el stock por su symbol desde la base de datos
-            var stock = await _interfaceStock.GetBySymbolAsync(symbol); 
+            var stock = await _stockRepo.GetBySymbolAsync(symbol); 
 
             //Si el stock no existe
             if(stock == null)
@@ -72,10 +73,7 @@ namespace FinShark.Server.Controllers
                 {
                     return BadRequest("This stock doesn't exist");
                 }
-                else
-                {
-                    await _interfaceStock.CreateAsync(stock);
-                }
+                await _stockRepo.CreateAsync(stock);
             }
             //Obtenemos el username del usuario actual
             var username = User.GetUsername();
@@ -83,7 +81,7 @@ namespace FinShark.Server.Controllers
             //Desde el comment dto que recibimos, lo mapeamos a comment
             var commentModel = requestDto.ToCommentFromCreateComment(stock.Id);
             commentModel.AppUserId = appUser.Id;
-            await _interfaceComment.CreateAsync(commentModel);
+            await _commentRepo.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }
 
@@ -96,7 +94,7 @@ namespace FinShark.Server.Controllers
 
             //Verificamos con el repositorio, si el comentario existe, de acuerdo al id, si existe, con el requestDto
             //se actualiza reemplazando los datos anteriores y posteriormente SaveChangesAsync()
-            var comment = await _interfaceComment.UpdateAsync(id, requestDto);
+            var comment = await _commentRepo.UpdateAsync(id, requestDto);
 
             if(comment == null)
                 return NotFound("Comment not found");
@@ -111,7 +109,7 @@ namespace FinShark.Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comment = await _interfaceComment.DeleteAsync(id);
+            var comment = await _commentRepo.DeleteAsync(id);
 
             if(comment == null)
                 return NotFound("Comment doesn't exist");

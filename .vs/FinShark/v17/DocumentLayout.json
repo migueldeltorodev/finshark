@@ -1,0 +1,130 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\helpers\\commentqueryobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\helpers\\commentqueryobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\repository\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\repository\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|d:\\databank\\2024 programacion\\aspnet core \u002B react course\\c \u002B react course\\typescript projects\\finshark\\finshark.server\\interfaces\\interfacecommentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39F82B4C-FFFE-4002-9D3A-AB9051D0E01A}|FinShark.Server\\FinShark.Server.csproj|solutionrelative:finshark.server\\interfaces\\interfacecommentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "FinShark.Server\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAowDMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T18:37:11.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Program.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Program.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Program.cs",
+              "RelativeToolTip": "FinShark.Server\\Program.cs",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAAAG8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T17:40:41.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CommentQueryObject.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Helpers\\CommentQueryObject.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Helpers\\CommentQueryObject.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Helpers\\CommentQueryObject.cs",
+              "RelativeToolTip": "FinShark.Server\\Helpers\\CommentQueryObject.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T17:37:40.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CommentRepository.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Repository\\CommentRepository.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Repository\\CommentRepository.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Repository\\CommentRepository.cs",
+              "RelativeToolTip": "FinShark.Server\\Repository\\CommentRepository.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAQwBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T17:30:27.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InterfaceCommentRepository.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Interfaces\\InterfaceCommentRepository.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Interfaces\\InterfaceCommentRepository.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Interfaces\\InterfaceCommentRepository.cs",
+              "RelativeToolTip": "FinShark.Server\\Interfaces\\InterfaceCommentRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T17:30:12.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CommentController.cs",
+              "DocumentMoniker": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Controllers\\CommentController.cs",
+              "RelativeDocumentMoniker": "FinShark.Server\\Controllers\\CommentController.cs",
+              "ToolTip": "D:\\DataBank\\2024 Programacion\\ASPNET CORE \u002B React Course\\C \u002B React Course\\TypeScript Projects\\FinShark\\FinShark.Server\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "FinShark.Server\\Controllers\\CommentController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAA1wCMAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T14:18:44.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

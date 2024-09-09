@@ -62,19 +62,16 @@ namespace FinShark.Server.Controllers
                     {
                         return BadRequest("This stock doesn't exist");
                     }
-                    else
-                    {
-                        await _stockRepo.CreateAsync(stock);
-                    }
+                    await _stockRepo.CreateAsync(stock);
                 }
-                //Obtenemos el portfolio actual del usuario
+                //Obtenemos el portfolio actual del usuario para el siguiente  paso
                 var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
 
                 //Si ya contiene el stock, nos aseguramos de no añadirlo duplicado
                 if (userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower()))
                     return BadRequest("Cannot add same stock");
 
-                //De no existir, se crea o actualiza el portfolio con el nuevo stock (con la FK)
+                //De no existir, se crea y actualiza el portfolio con el nuevo stock (con la FK)
                 var portfolioModel = new Portfolio
                 {
                     StockId = stock.Id,

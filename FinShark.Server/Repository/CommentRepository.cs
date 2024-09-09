@@ -1,5 +1,6 @@
 ﻿using FinShark.Server.Data;
 using FinShark.Server.Dtos.Comment;
+using FinShark.Server.Helpers;
 using FinShark.Server.Interfaces;
 using FinShark.Server.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,22 @@ namespace FinShark.Server.Repository
             _context = applicationDbContext;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject query)
         {
-            return await _context.Comment.Include(a => a.AppUser).ToListAsync();
+            var comments = _context.Comment.Include(a => a.AppUser).AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.Symbol))
+            {
+                comments = comments.Where(s => s.Stock.Symbol == query.Symbol);
+            }
+
+            if(query.IsDescending == true)
+            {
+                comments = comments.OrderByDescending(c => c.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
+
         }
 
         public async Task<Comment?> GetByIdAsync(int id)

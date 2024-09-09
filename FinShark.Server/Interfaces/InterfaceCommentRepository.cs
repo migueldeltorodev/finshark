@@ -1,11 +1,12 @@
 ﻿using FinShark.Server.Dtos.Comment;
+using FinShark.Server.Helpers;
 using FinShark.Server.Models;
 
 namespace FinShark.Server.Interfaces
 {
     public interface InterfaceCommentRepository
     {
-        Task<List<Comment>> GetAllAsync();
+        Task<List<Comment>> GetAllAsync(CommentQueryObject query);
         Task<Comment?> GetByIdAsync(int id);
         Task<Comment?> CreateAsync(Comment comment);
         Task<bool> CommentExists(int id);

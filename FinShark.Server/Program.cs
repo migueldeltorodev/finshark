@@ -100,11 +100,8 @@ builder.Services.AddHttpClient<InterfaceFMPService, FMPService>();
 
 var app = builder.Build();
 
-//Agregando autenticación
-app.UseAuthentication();
-app.UseAuthorization();
-
 // Configure the HTTP request pipeline.
+// De aquí en adelante todo es middleware, así que el orden de cada linea de código es importante.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -112,6 +109,19 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    //.WithOrigins("https://localhost:44351")
+    .SetIsOriginAllowed(origin => true)
+); 
+
+
+//Agregando autenticación
+app.UseAuthentication();
+app.UseAuthorization();
 
 //Agregando opcion de mapeo automatico de controladores.
 app.MapControllers();
