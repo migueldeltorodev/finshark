@@ -15,22 +15,17 @@ namespace FinShark.Server.Repository
             _context = applicationDbContext;
         }
 
-        public async Task<List<Comment>> GetAllAsync(CommentQueryObject query)
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject detailsQuery)
         {
             var comments = _context.Comment.Include(a => a.AppUser).AsQueryable();
 
-            if(!string.IsNullOrWhiteSpace(query.Symbol))
-            {
-                comments = comments.Where(s => s.Stock.Symbol == query.Symbol);
-            }
+            if(!string.IsNullOrWhiteSpace(detailsQuery.Symbol))
+                comments = comments.Where(s => s.Stock.Symbol == detailsQuery.Symbol);
 
-            if(query.IsDescending == true)
-            {
+            if(detailsQuery.IsDescending == true)
                 comments = comments.OrderByDescending(c => c.CreatedOn);
-            }
-
+            
             return await comments.ToListAsync();
-
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
