@@ -31,12 +31,21 @@ namespace FinShark.Server.Controllers
         [Authorize]
         public async Task<IActionResult> GetAll([FromQuery]CommentQueryObject detailsQuery)
         {
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                var commentsFromDatabase = await _commentRepo.GetAllAsync(detailsQuery);
 
-            var commentsFromDatabase = await _commentRepo.GetAllAsync(detailsQuery);
-            var commentsDto = commentsFromDatabase.Select(s => s.ToCommentDto());
-            return Ok(commentsDto);
+                if(!commentsFromDatabase.Any())
+                    return NotFound("No comments found matching the criteria");
+
+                var commentsDto = commentsFromDatabase.Select(s => s.ToCommentDto());
+                return Ok(commentsDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            
         }
 
         
