@@ -54,7 +54,9 @@ function LoginPage({}: Props) {
                   {...register("userName")}
                 />
                 {errors.userName ? (
-                  <p className="text-white">{errors.userName.message}</p>
+                  <p className="font-medium text-red-900">
+                    {errors.userName.message}
+                  </p>
                 ) : (
                   ""
                 )}
@@ -74,7 +76,9 @@ function LoginPage({}: Props) {
                   {...register("password")}
                 />
                 {errors.password ? (
-                  <p className="text-white">{errors.password.message}</p>
+                  <p className="font-medium text-red-900">
+                    {errors.password.message}
+                  </p>
                 ) : (
                   ""
                 )}
@@ -94,7 +98,7 @@ function LoginPage({}: Props) {
                 Sign in
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+                Don't have an account yet?{" "}
                 <a
                   href="#"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
