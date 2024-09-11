@@ -19,7 +19,6 @@ type Props = { children: React.ReactNode };
 const UserContext = createContext<UserContextType>({} as UserContextType);
 
 export const UserProvider = ({ children }: Props) => {
-  //navigate nos permite ir a otras páginas cuando estemos loggedIn
   const navigate = useNavigate();
 
   const [token, setToken] = useState<string | null>(null);
