@@ -6,15 +6,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 type Props = {};
 
 type RegisterFormsInputs = {
+  email: string;
   userName: string;
   password: string;
-  email: string;
 };
 
 const validation = Yup.object().shape({
+  email: Yup.string().required("Email is required"),
   userName: Yup.string().required("Username is required"),
   password: Yup.string().required("Password is required"),
-  email: Yup.string().required("Email is required"),
 });
 
 function RegisterPage({}: Props) {
@@ -26,7 +26,7 @@ function RegisterPage({}: Props) {
   } = useForm<RegisterFormsInputs>({ resolver: yupResolver(validation) });
 
   const handleRegister = (form: RegisterFormsInputs) => {
-    registerUser(form.userName, form.password, form.email);
+    registerUser(form.email, form.userName, form.password);
   };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -34,7 +34,7 @@ function RegisterPage({}: Props) {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mb-20 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+              Register
             </h1>
             <form
               className="space-y-4 md:space-y-6"
@@ -106,14 +106,6 @@ function RegisterPage({}: Props) {
                   ""
                 )}
               </div>
-              <div className="flex items-center justify-between">
-                <a
-                  href="#"
-                  className="text-sm text-white font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
               <button
                 type="submit"
                 className="w-full text-white bg-lightGreen hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -121,12 +113,12 @@ function RegisterPage({}: Props) {
                 Sign in
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don't have an account yet?{" "}
+                Already have an account?{" "}
                 <a
-                  href="#"
+                  href="login"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  Sign in
                 </a>
               </p>
             </form>
